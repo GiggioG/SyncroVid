@@ -11,18 +11,18 @@
 <body>
     <video id="vid" autoplay="false" controls="true" style="height:50vh" preload="auto"></video>
     <br>
-    <input type="number" id="seek_mins" min="0" style="width:4em">
+    <input type="number" id="seek_mins" min="0" style="width:4em" placeholder="min">
     <label>:</label>
-    <input type="number" id="seek_secs" min="0" style="width:3em" max="59">
+    <input type="number" id="seek_secs" min="0" style="width:3em" max="59" placeholder="sec">
     <button id="seek">Seek</button>
     <br>
-    <input type="url" id="src_src">
+    <input type="url" id="src_src" placeholder="video url">
     <button id="src">Source</button>
     <br>
     <button id="reload">Reload</button>
     <script>
         const vid = document.querySelector("video#vid");
-        let ws = new WebSocket("ws://192.168.0.105:3000/master");
+        let ws = new WebSocket(`ws://${location.hostname}:3000/master`);
         vid.onpause = _ => {
             ws.send(JSON.stringify({
                 "cmd": "pause",
