@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncroVid Master</title>
+</head>
+
+<body>
+    <video id="vid" autoplay="false" controls="true" style="height:50vh" preload="auto"></video>
+    <br>
+    <input type="number" id="seek_mins" min="0" style="width:4em">
+    <label>:</label>
+    <input type="number" id="seek_secs" min="0" style="width:3em" max="59">
+    <button id="seek">Seek</button>
+    <br>
+    <input type="url" id="src_src">
+    <button id="src">Source</button>
+    <br>
+    <button id="reload">Reload</button>
+    <script>
+        const vid = document.querySelector("video#vid");
+        let ws = new WebSocket("ws://192.168.0.105:3000/master");
+        vid.onpause = _ => {
+            ws.send(JSON.stringify({
+                "cmd": "pause",
+                "data": null
+            }));
+            ws.send(JSON.stringify({
+                "cmd": "seek",
+                "data": vid.currentTime
+            }));
+        }
+        vid.onplay = _ => {
+            ws.send(JSON.stringify({
+                "cmd": "seek",
+                "data": vid.currentTime
+            }));
+            ws.send(JSON.stringify({
+                "cmd": "play",
+                "data": null
+            }));
+        }
+        vid.onseeked = _ => {
+            ws.send(JSON.stringify({
+                "cmd": "seek",
+                "data": vid.currentTime
+            }));
+        }
+        ws.onclose = _ => location.reload();
+        document.querySelector("button#seek").addEventListener("click", _ => {
+            let mins = Number(document.querySelector("input#seek_mins").value);
+            let secs = Number(document.querySelector("input#seek_secs").value);
+            let time = ((mins * 60) + secs);
+            vid.currentTime = time;
+            ws.send(JSON.stringify({
+                "cmd": "seek",
+                "data": vid.currentTime
+            }));
+        });
+        document.querySelector("button#reload").addEventListener("click", _ => {
+            ws.send(JSON.stringify({
+                "cmd": "reload",
+                "data": null
+            }));
+        });
+        document.querySelector("button#src").addEventListener("click", _ => {
+            vid.src = document.querySelector("input#src_src").value;
+            vid.load();
+            vid.pause();
+            ws.send(JSON.stringify({
+                "cmd": "src",
+                "data": vid.src
+            }));
+        });
+    </script>
+</body>
+
+</html>

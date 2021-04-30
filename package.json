@@ -1,0 +1,26 @@
+{
+    "name": "syncrovid",
+    "version": "1.0.0",
+    "description": "watch videos simultanously",
+    "main": "app.js",
+    "scripts": {},
+    "keywords": [
+        "video",
+        "sync",
+        "simultanious",
+        "watch"
+    ],
+    "author": "Gigo_G",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GiggioG/SyncroVid.git"
+    },
+    "bugs": {
+        "url": "https://github.com/GiggioG/SyncroVid/issues"
+    },
+    "homepage": "https://github.com/GiggioG/SyncroVid#readme",
+    "dependencies": {
+        "ws": "^7.4.5"
+    }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncroVid</title>
+</head>
+
+<body>
+    <video id="vid" autoplay="false" controls="true" style="height:50vh" preload="auto"></video>
+    <script>
+        const vid = document.querySelector("video#vid");
+        // let i = 1;
+        // let maxi = 18;
+        // vid.src = "/video/1"
+        // vid.onended = _ => {
+        //     i++;
+        //     if (i < maxi) {
+        //         vid.src = `/video/${i}`;
+        //         vid.currentTime = 0;
+        //         vid.play();
+        //     }
+        // };
+        // //
+        let ws = new WebSocket("ws://192.168.0.105:3000");
+        ws.onmessage = message => {
+            console.log(JSON.parse(message.data));
+            let {
+                cmd,
+                data
+            } = JSON.parse(message.data);
+            if (cmd == "src") {
+                vid.src = data;
+                vid.load();
+                vid.pause();
+            }
+            if (cmd == "seek") {
+                vid.currentTime = data;
+            }
+            if (cmd == "pause") {
+                vid.pause();
+            }
+            if (cmd == "play") {
+                vid.play();
+            }
+            if (cmd == "reload") {
+                location.reload();
+            }
+        };
+        ws.onclose = _ => location.reload();
+    </script>
+</body>
+
+</html>
