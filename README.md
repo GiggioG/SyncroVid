@@ -11,7 +11,7 @@ Use the command `startServer.bat` to start the server without hosting a video.
 Use the command `startServer.bat <VIDEOPATH>` to start the server and serve the video in `<VIDEOPATH>` to `/video`. *\<VIDEOPATH> MUST BE A PATH TO A MP4*
 If your friends are on a different network, you will need to `port forward` ports `8080 and 3000` on your router to `8080 and 3000` on your machine. You see how to do that [here](https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/).
 ### Watching videos
-If your friends are on your network, get your ip by doing the command `ipconfig | findstr "IPv4 Adress" | findstr /V "Autoconfiguration"`.
+If your friends are on your network, get your ip by doing the command `ipconfig | findstr "IPv4 Address." | findstr /V "Autoconfiguration"`.
 
 If your friedns aren't on your network, get your ip by visiting `https://www.google.com/search?q=what+is+my+ip`.
 
