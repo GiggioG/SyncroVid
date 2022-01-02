@@ -15,7 +15,7 @@ If your friends are on your network, get your ip by doing the command `ipconfig 
 
 If your friedns aren't on your network, get your ip by visiting `https://www.google.com/search?q=what+is+my+ip`.
 
-Next, open `http://<yourip>:8080/master` and tell your friends to open `http://<yourip>:3000`.
+Next, open `http://<yourip>:8080/master` and tell your friends to open `http://<yourip>:8080`.
 
 Then, when everyone gets in, press the `Refresh` button, this will refresh all of your friend's pages.
 

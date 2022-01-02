@@ -78,8 +78,9 @@ wss.on("connection", (sock, req) => {
     }
     sock.id = id;
     sock.on("message", msg => {
+        msg = msg.toString();
         if (sock.master) {
-            console.log(`Broadcasting message from master with id ${sock.id}: ${JSON.stringify(msg)}`);
+            console.log(`Broadcasting message from master with id ${sock.id}: ${msg}`);
             for (clientID in clients) {
                 if (!clients[clientID].master) {
                     clients[clientID].send(msg);
